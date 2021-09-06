@@ -1,0 +1,18 @@
+<h1>Hello {{ app.user }}!</h1>
+<p>
+    {% if 0 == teams|length %}
+        {{ 'Level' | trans }}
+    {%  elseif 1 ==  teams|length %}
+        {{ 'Level' | trans }}
+    {% else %}
+        You have {{ teams|length }} teams.
+    {% endif %}
+</p>
+<ul>
+    {% for team in teams %}
+        <li><a href="{{ path('team_show', {'slug': team.slug, 'level': team.level.name}) }}">{{ team.name }}</a> ({{ 'Level' | trans }} : {{ team.level }})</li>
+    {% endfor %}
+</ul>
+<p>
+        <a href="{{ path('team_list') }}">{{ 'Back to list of teams' | trans }}</a>
+</p>

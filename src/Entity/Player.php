@@ -58,6 +58,11 @@ class Player
         $this->statistics = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return ucfirst($this->firstName) . ' ' . strtoupper($this->lastName);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

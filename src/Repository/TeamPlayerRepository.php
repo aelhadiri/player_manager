@@ -19,6 +19,22 @@ class TeamPlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, TeamPlayer::class);
     }
 
+    public function findByTeam($team)
+    {
+        return $this->createQueryBuilder('tp')
+            ->addSelect('t')
+            ->addSelect('s')
+            ->leftJoin('tp.team', 't')
+            ->leftJoin('tp.season', 's')
+            ->andWhere('tp.team = :team')
+            ->setParameter('team', $team)
+            ->orderBy('s.position', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return TeamPlayer[] Returns an array of TeamPlayer objects
     //  */

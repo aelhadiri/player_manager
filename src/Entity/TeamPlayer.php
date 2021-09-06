@@ -21,19 +21,19 @@ class TeamPlayer
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="teamPlayers")
+     * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="teamPlayers", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $season;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="teamPlayers")
+     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="teamPlayers", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $player;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="teamPlayers")
+     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="teamPlayers", fetch="EAGER")
      */
     private $team;
 

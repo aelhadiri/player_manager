@@ -1,0 +1,13 @@
+<h1>{{ team.name }} ({{ 'Level' | trans }} : {{ team.level }})</h1>
+
+<ul>
+    {% for season in seasons %}
+        <li>{{ 'Season' | trans }} : {{ season.name }}</li>
+        <ul>
+            {% for player in players[season.id] %}
+                <li><a href="#">{{ player }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+</ul>
