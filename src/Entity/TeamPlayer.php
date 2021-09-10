@@ -21,8 +21,7 @@ class TeamPlayer
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="teamPlayers", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(name="season", columnDefinition="YEAR", nullable=false)
      */
     private $season;
 
@@ -42,12 +41,12 @@ class TeamPlayer
         return $this->id;
     }
 
-    public function getSeason(): ?Season
+    public function getSeason(): int
     {
         return $this->season;
     }
 
-    public function setSeason(?Season $season): self
+    public function setSeason(int $season): self
     {
         $this->season = $season;
 

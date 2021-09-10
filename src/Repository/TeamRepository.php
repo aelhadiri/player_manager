@@ -23,15 +23,13 @@ class TeamRepository extends ServiceEntityRepository
     // /**
     //  * @return Team[] Returns an array of Team objects
     //  */
-    public function findOneBySlugAndLevel($user, $slug, $level): ?Team
+    public function findOneBySlugAndLevel($club, $slug, $level): ?Team
     {
         return $this->createQueryBuilder('t')
-            ->addSelect('l')
-            ->leftJoin('t.level', 'l')
-            ->andWhere('t.owner = :user')
+            ->andWhere('t.club = :club')
             ->andWhere('t.slug = :slug')
-            ->andWhere('l.name = :level')
-            ->setParameter('user', $user)
+            ->andWhere('level = :level')
+            ->setParameter('club', $club)
             ->setParameter('slug', $slug)
             ->setParameter('level', $level)
             ->orderBy('t.id', 'ASC')

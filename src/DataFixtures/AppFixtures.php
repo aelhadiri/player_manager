@@ -32,16 +32,21 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $this->populateLevelEntity($manager);
-        $this->populateSeasonEntity($manager);
+//        $this->populateLevelEntity($manager);
+//        $this->populateSeasonEntity($manager);
 
-        $users = UserFactory::createMany(5);
 
-        TeamFactory::createMany(20);
-        $this->updateTeams($manager, $users);
+        // create 5 club with their managers
+//        $club_managers = ClubManagerFactory::createMany(5);
+//        foreach ($club_managers as $club_manager) {
+//            ClubFactory::createOne(['manager' => $club_manager]);
+//        }
 
-        PlayerFactory::createMany(200);
-        $this->updatePlayerTeams($manager);
+//        TeamFactory::createMany(20);
+//        $this->updateTeams($manager, $users);
+//
+//        PlayerFactory::createMany(200);
+//        $this->updatePlayerTeams($manager);
     }
 
     protected function populateLevelEntity(ObjectManager $manager)

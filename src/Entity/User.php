@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -27,6 +28,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastName;
+
+    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -38,16 +49,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="owner")
+     * @ORM\OneToMany(targetEntity=Club::class, mappedBy="manager")
      */
-    private $teams;
+    private $clubs;
 
     public function __construct()
     {
-        $this->teams = new ArrayCollection();
+        $this->clubs = new ArrayCollection();
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
         return $this->email;
     }
@@ -69,6 +80,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
     /**
      * A visual identifier that represents this user.
      *
@@ -76,7 +110,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -84,7 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -142,32 +176,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Team[]
+     * @return Collection|Club[]
      */
-    public function getTeams(): Collection
+    public function getClubs(): Collection
     {
-        return $this->teams;
+        return $this->clubs;
     }
 
-    public function addTeam(Team $team): self
+    public function addClub(Club $club): self
     {
-        if (!$this->teams->contains($team)) {
-            $this->teams[] = $team;
-            $team->setOwner($this);
+        if (!$this->clubs->contains($club)) {
+            $this->clubs[] = $club;
+            $club->setClubManager($this);
         }
 
         return $this;
     }
 
-    public function removeTeam(Team $team): self
+    public function removeClub(Club $club): self
     {
-        if ($this->teams->removeElement($team)) {
+        if ($this->clubs->removeElement($club)) {
             // set the owning side to null (unless already changed)
-            if ($team->getOwner() === $this) {
-                $team->setOwner(null);
+            if ($club->getClubManager() === $this) {
+                $club->setClubManager(null);
             }
         }
 
         return $this;
     }
+
 }

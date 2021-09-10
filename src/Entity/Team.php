@@ -35,14 +35,14 @@ class Team
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Level::class, inversedBy="teams")
+     * @ORM\Column(type="string", length=100)
      */
     private $level;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="teams")
+     * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="teams")
      */
-    private $owner;
+    private $club;
 
     /**
      * @ORM\OneToMany(targetEntity=TeamPlayer::class, mappedBy="team")
@@ -83,26 +83,26 @@ class Team
         return $this;
     }
 
-    public function getLevel(): ?Level
+    public function getLevel(): string
     {
         return $this->level;
     }
 
-    public function setLevel(?Level $level): self
+    public function setLevel(string $level): self
     {
         $this->level = $level;
 
         return $this;
     }
 
-    public function getOwner(): ?User
+    public function getClub(): ?Club
     {
-        return $this->owner;
+        return $this->club;
     }
 
-    public function setOwner(?User $owner): self
+    public function setClub(?Club $club): self
     {
-        $this->owner = $owner;
+        $this->club = $club;
 
         return $this;
     }

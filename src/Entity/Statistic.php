@@ -21,78 +21,104 @@ class Statistic
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=StatisticItem::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
      */
-    private $feature;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=StatisticItem::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $season;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="statistics")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $player;
+    private $played_games;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $value;
+    private $played_minutes;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $number_of_assists;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $number_of_goals;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TeamPlayer::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $teamPlayer;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFeature(): ?StatisticItem
+    public function getPlayedGames()
     {
-        return $this->feature;
+        return $this->played_games;
     }
 
-    public function setFeature(?StatisticItem $feature): self
+    public function setPlayedGames(int $played_games): self
     {
-        $this->feature = $feature;
+        $this->played_games = $played_games;
 
         return $this;
     }
 
-    public function getSeason(): ?StatisticItem
+    public function getPlayedMinutes()
     {
-        return $this->season;
+        return $this->played_minutes;
     }
 
-    public function setSeason(?StatisticItem $season): self
+    public function setPlayedMinutes(int $played_minutes): self
     {
-        $this->season = $season;
+        $this->played_minutes = $played_minutes;
 
         return $this;
+    }
+
+    public function getNumberOfAssists()
+    {
+        return $this->number_of_assists;
+    }
+
+    public function setNumberOfAssists(int $number_of_assists): self
+    {
+        $this->number_of_assists = $number_of_assists;
+
+        return $this;
+    }
+
+    public function getNumberOfGoals()
+    {
+        return $this->number_of_goals;
+    }
+
+    public function setNumberOfGoals(int $number_of_goals): self
+    {
+        $this->number_of_goals = $number_of_goals;
+
+        return $this;
+    }
+
+    public function getTeamPlayer(): TeamPlayer
+    {
+        return $this->teamPlayer;
+    }
+
+    public function setTeamPlayer(TeamPlayer $teamPlayer): self
+    {
+        $this->teamPlayer = $teamPlayer;
+
+        return $this;
+    }
+
+    public function getSeason(): int
+    {
+        return $this->teamPlayer->getSeason();
     }
 
     public function getPlayer(): ?Player
     {
-        return $this->player;
+        return $this->teamPlayer->getPlayer();
     }
 
-    public function setPlayer(?Player $player): self
-    {
-        $this->player = $player;
-
-        return $this;
-    }
-
-    public function getValue(): ?int
-    {
-        return $this->value;
-    }
-
-    public function setValue(int $value): self
-    {
-        $this->value = $value;
-
-        return $this;
-    }
 }
